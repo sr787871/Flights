@@ -9,4 +9,9 @@ airplaneRoutes.post('/',
     AirplaneController.createAirplane
 );
 
+// api/v1/airplanes GET
+airplaneRoutes.get('/',
+    AirplaneController.getAirplanes
+);
+
 module.exports = airplaneRoutes;
