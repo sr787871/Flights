@@ -14,4 +14,8 @@ airplaneRoutes.get('/',
     AirplaneController.getAirplanes
 );
 
+// api/v1/airplanes GET
+airplaneRoutes.get('/:id',
+    AirplaneController.getAirplane
+);
 module.exports = airplaneRoutes;
