@@ -18,6 +18,7 @@ Lets take a look inside the `src` folder
 
  - `utils` -> contains helper methods, error classes etc.
 
+
 ### Setup the Project
 
  - Download this template from github and open it in your favorite editor.
@@ -40,7 +41,36 @@ Lets take a look inside the `src` folder
  - By executing the above command you will get migrations and seeders folders along with a config.json folder inside the config folder.
  - If you're setting up your development environment, then write the username of your Db, password of your db and in dialect mention whatever db you are using. For ex: mysql, mariadb etc
  - If you're setting up your test or production environment, make sure you also replace the host with a hosted db url.
+
+ - `migrations` -> it is for version controlling for the database, and this folder is come along with the `npx sequelize init `
+    - it is for generating a new migration file
+    ```
+        npx sequelize migrate:generate 
+    ```
+    - for versioning, 
+    ``` 
+        npx sequelize db:migrate
+    ```
+    - and for rest of the command see the sequelize-cli github repo 
+ - `seeders` -> It is for start with the default value inside the database(like starter data for db) 
  - To run the server, Execute
     ```
         npm run dev
     ```
+ - If we want to execute the mysql commands in terminal
+    ```
+        mysql -u root -p 
+    ```
+    - then we have to enter our mysql password
+    
+    - We have to first put the db name in the "development" environment in the config.json file, then we have to execute the below command and that will create the db easily
+    ```
+        npx sequelize db:create
+    ```
+ - Now every table is called as model to create a model 
+    ```
+        npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer
+    ```
+    this will create the model and the migration for the table
+
+ - After changing the models file, migrate the db also because if we don't do this then the changes we had done in models file only reflect in javascrift file not on a DB level, to show the changes on a DB Level we have to migrate this and then the changes will be visible on table also.

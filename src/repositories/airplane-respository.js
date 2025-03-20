@@ -3,7 +3,7 @@ const {Airplane} = require('../models')
 
 class AirplaneRepository extends CrudRepository{
     constructor(){
-        super(Airplane);
+        super(Airplane); // with this super keyword we can call the constructor of parent class
     }
 }
 
