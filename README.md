@@ -74,3 +74,5 @@ Lets take a look inside the `src` folder
     this will create the model and the migration for the table
 
  - After changing the models file, migrate the db also because if we don't do this then the changes we had done in models file only reflect in javascrift file not on a DB level, to show the changes on a DB Level we have to migrate this and then the changes will be visible on table also.
+
+ - We can also this with the sync keyword that will sync the db with out models changes but it will not do the versioning of our DB that our migrate command is giving us.
