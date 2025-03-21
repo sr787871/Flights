@@ -50,7 +50,7 @@ async function getAirplane(req,res){
 // req.body : {}
 async function destroyAirplane(req,res){
     try {
-        const response = await AirplaneService.derstroyAirplane(req.params.id)
+        const response = await AirplaneService.destroyAirplane(req.params.id)
         SuccessResponse.data = response
         return res.status(StatusCodes.OK).json(SuccessResponse)
     } catch (error) {
@@ -59,9 +59,23 @@ async function destroyAirplane(req,res){
     }
 }
 
+// PATCH : /airplanes/:id
+// req.body : {capacity:250}
+async function updateAirplane(req,res){
+    try {
+        const updatedAirplane = await AirplaneService.updateAirplane(req.params.id,req.body)
+        SuccessResponse.data = updatedAirplane
+        return res.status(StatusCodes.OK).json(SuccessResponse)
+    } catch (error) {
+        ErrorResponse.error = error
+        return res.status(error.statusCode).json(ErrorResponse)
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }

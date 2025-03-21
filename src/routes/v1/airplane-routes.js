@@ -24,4 +24,9 @@ airplaneRoutes.delete('/:id',
     AirplaneController.destroyAirplane
 );
 
+// api/v1/airplanes/:id PATCH
+airplaneRoutes.patch('/:id',
+    AirplaneController.updateAirplane
+)
+
 module.exports = airplaneRoutes;
