@@ -14,8 +14,14 @@ airplaneRoutes.get('/',
     AirplaneController.getAirplanes
 );
 
-// api/v1/airplanes GET
+// api/v1/airplanes/:id GET
 airplaneRoutes.get('/:id',
     AirplaneController.getAirplane
 );
+
+// api/v1/airplanes/:id DELETE
+airplaneRoutes.delete('/:id',
+    AirplaneController.destroyAirplane
+);
+
 module.exports = airplaneRoutes;
