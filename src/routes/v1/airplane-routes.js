@@ -26,6 +26,7 @@ airplaneRoutes.delete('/:id',
 
 // api/v1/airplanes/:id PATCH
 airplaneRoutes.patch('/:id',
+    AirplaneMiddlewares.validateCreateRequest,
     AirplaneController.updateAirplane
 )
 
