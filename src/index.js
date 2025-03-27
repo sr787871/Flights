@@ -15,18 +15,6 @@ app.use(express.urlencoded({extended:true}));
 
 app.use('/api',apiRoutes);
 
-app.listen(serverConfig.PORT,async ()=>{
+app.listen(serverConfig.PORT, ()=>{
     console.log(`Successfully started the server at PORT : ${serverConfig.PORT}`);
-
-    //Bad Code Alert
-    // These are some custom functions that sequelize provides us to directly query the DB.
-    //  const {City,Airport} = require('./models')
-    //  const city = await City.findByPk(10);
-    //  city.createAirport({name:'Bir Airport',code : 'BIR'});
-    //  await City.destroy({
-    //      where : {
-    //          id:10
-    //      }
-    //  })
-    //  console.log(city)
 })
