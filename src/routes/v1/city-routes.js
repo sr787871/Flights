@@ -10,7 +10,13 @@ cityRoutes.post('/',
 );
 
 // api/v1/cities PATCH
+cityRoutes.get('/',
+    // CityController.
+);
+
+// api/v1/cities PATCH
 cityRoutes.patch('/:id',
+    CityMiddlewares.validateCreateRequest,
     CityController.updateCity
 );
 
