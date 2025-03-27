@@ -19,7 +19,6 @@ Lets take a look inside the `src` folder
  - `utils` -> contains helper methods, error classes etc.
 
 
-
 ### Setup the Project
 
  - Download this template from github and open it in your favorite editor.
@@ -42,7 +41,7 @@ Lets take a look inside the `src` folder
  - By executing the above command you will get migrations and seeders folders along with a config.json folder inside the config folder.
  - If you're setting up your development environment, then write the username of your Db, password of your db and in dialect mention whatever db you are using. For ex: mysql, mariadb etc
  - If you're setting up your test or production environment, make sure you also replace the host with a hosted db url.
- - `models` -> basically it is used for the javascript level constraint where as migrations is for DB level constraints , also it provides schema for the DB, for js level constraint we write associations inside the model
+
  - `migrations` -> it is for version controlling for the database, and this folder is come along with the `npx sequelize init `
     - it is for generating a new migration file
     ```
@@ -77,9 +76,3 @@ Lets take a look inside the `src` folder
  - After changing the models file, migrate the db also because if we don't do this then the changes we had done in models file only reflect in javascrift file not on a DB level, to show the changes on a DB Level we have to migrate this and then the changes will be visible on table also.
 
  - We can also this with the sync keyword that will sync the db with out models changes but it will not do the versioning of our DB that our migrate command is giving us.
-
-- For creating the fk association after migraiton generating / updating a migration
-    ```
-        npx sequelize migration:generate --name update-city-airport-association
-    ```
-    - this will create only new migration, model is already created for the airport table 
