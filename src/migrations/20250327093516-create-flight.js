@@ -48,6 +48,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull : false,
       },
+      price : {
+        type : DataTypes.INTEGER,
+        allowNull : false,
+      },
       boardingGate: {
         type: Sequelize.STRING
       },
