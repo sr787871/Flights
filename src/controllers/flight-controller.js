@@ -14,6 +14,7 @@ async function createFlight(req,res){
             arrivalAirportId : req.body.arrivalAirportId,
             arrivalTime : req.body.arrivalTime,
             departueTime : req.body.departueTime,
+            price : req.body.price,
             boardingGate : req.body.boardingGate,
             totalSeats : req.body.totalSeats,
         });
