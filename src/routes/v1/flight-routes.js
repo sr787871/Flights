@@ -1,13 +1,18 @@
 const express = require("express");
 const {FlightController} = require("../../controllers");
 const {FlightMiddlewares} = require("../../middlewares");
-const airplaneRoutes = express.Router();
+const flightRoutes = express.Router();
 
 // api/v1/airplanes POST
-airplaneRoutes.post('/',
+flightRoutes.post('/',
     FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
     FlightController.createFlight
 );
 
+// api/v1/airplanes POST
+flightRoutes.get('/',
+    // FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
+    FlightController.getAllFlights
+);
 
-module.exports = airplaneRoutes;
+module.exports = flightRoutes;
