@@ -10,10 +10,10 @@ async function createFlight(req,res){
         const flight = await FlightService.createFlight({
             flightNumber  : req.body.flightNumber,
             airplaneId : req.body.airplaneId,
-            departueAirportId : req.body.departueAirportId,
+            departureAirportId : req.body.departureAirportId,
             arrivalAirportId : req.body.arrivalAirportId,
             arrivalTime : req.body.arrivalTime,
-            departueTime : req.body.departueTime,
+            departureTime : req.body.departureTime,
             price : req.body.price,
             boardingGate : req.body.boardingGate,
             totalSeats : req.body.totalSeats,
@@ -26,6 +26,18 @@ async function createFlight(req,res){
     }
 }
 
+async function getAllFlights(req,res){
+    try {
+        const flights = await FlightService.getAllFlights(req.query)
+        SuccessResponse.data = flights
+        return res.status(StatusCodes.OK).json(SuccessResponse)  
+    } catch (error) {
+        ErrorResponse.error = error
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createFlight,
+    getAllFlights
 }
