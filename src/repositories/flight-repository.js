@@ -1,6 +1,6 @@
 const CrudRepository = require('./crud-repository');
-const {Flight} = require('../models');
-const { where } = require('sequelize');
+const {Flight,Airplane,Airport,City} = require('../models');
+const { Sequelize } = require('sequelize');
 
 class FlightRepository extends CrudRepository{
     constructor(){
@@ -10,7 +10,38 @@ class FlightRepository extends CrudRepository{
     async getAllFlights(filter,sort){
         const response = await Flight.findAll({
             where : filter,
-            order : sort
+            order : sort,
+            include : [ // to querying the join in sequelize we have include,
+                { 
+                    model : Airplane,
+                    required : true, // using required we are doing inner join
+                    as : 'airplaneDetails' // this alias we also have to mention in the association which is in model file 
+                },
+                {
+                    model : Airport,
+                    required : true,
+                    as : 'departureAirport',
+                    on : { // this on is on which column we have a apply a foreign Key and without this on we the fKey is automatically applied to the airplane.id col
+                        col1 : Sequelize.where(Sequelize.col("Flight.departureAirportId") , "=" , Sequelize.col("departureAirport.code"))
+                    },
+                    include : {
+                        model : City,
+                        required : true,
+                    }
+                },
+                {
+                    model : Airport,
+                    required : true,
+                    as : 'arrivalAirport',
+                    on : {
+                        col1 : Sequelize.where(Sequelize.col("Flight.arrivalAirportId") , "=" , Sequelize.col("arrivalAirport.code"))
+                    },
+                    include : {
+                        model : City,
+                        required : true,
+                    }
+                }
+            ]
         });
         return response;
     }
