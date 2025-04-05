@@ -9,16 +9,23 @@ flightRoutes.post('/',
     FlightController.createFlight
 );
 
-// api/v1/flights POST
+// api/v1/flights GET
 flightRoutes.get('/',
     // FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
     FlightController.getAllFlights
 );
 
-// api/v1/flights/:id POST
+// api/v1/flights/:id GET
 flightRoutes.get('/:id',
     // FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
     FlightController.getFlight
+);
+
+// api/v1/flights/:id PATCH
+flightRoutes.patch('/:id/seats',
+    // FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
+    FlightMiddlewares.validateUpdateSeatsRequest,
+    FlightController.updateSeats
 );
 
 module.exports = flightRoutes;
