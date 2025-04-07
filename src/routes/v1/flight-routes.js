@@ -21,7 +21,7 @@ flightRoutes.get('/:id',
     FlightController.getFlight
 );
 
-// api/v1/flights/:id PATCH
+// api/v1/flights/:id/seats PATCH
 flightRoutes.patch('/:id/seats',
     // FlightMiddlewares.validateCreateRequest,  // Adding middlewares for validation
     FlightMiddlewares.validateUpdateSeatsRequest,
