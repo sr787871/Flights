@@ -1,74 +1,58 @@
-const { response } = require("express");
-const {AirplaneService} = require("../services")
-const {StatusCodes} = require("http-status-codes")
-const {SuccessResponse , ErrorResponse} = require("../utils/common")
+const { AirplaneService } = require("../services");
+const { StatusCodes } = require("http-status-codes");
+const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 // Post : /airplane
 // reqbody {modelNumber:'airbus320', capacity:200}
-
-async function createAirplane(req,res){
+async function createAirplane(req, res) {
     try {
         const airplane = await AirplaneService.createAirplane({
-            modelNumber:req.body.modelNumber,
+            modelNumber: req.body.modelNumber,
             capacity: req.body.capacity
         });
-        SuccessResponse.data = airplane
-        return res.status(StatusCodes.CREATED).json(SuccessResponse)        
+        return res.status(StatusCodes.CREATED).json(SuccessResponse(airplane));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // GET : /airplanes
-// reqbody : {}
-async function getAirplanes(req,res){
+async function getAirplanes(req, res) {
     try {
-        const airplane = await AirplaneService.getAirplanes()
-        SuccessResponse.data = airplane
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const airplanes = await AirplaneService.getAirplanes();
+        return res.status(StatusCodes.OK).json(SuccessResponse(airplanes));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // GET : /airplanes/:id
-// req.body : {}
-async function getAirplane(req,res){
+async function getAirplane(req, res) {
     try {
-        const airplane = await AirplaneService.getAirplane(req.params.id)
-        SuccessResponse.data = airplane
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const airplane = await AirplaneService.getAirplane(req.params.id);
+        return res.status(StatusCodes.OK).json(SuccessResponse(airplane));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
-// GET : /airplanes/:id
-// req.body : {}
-async function destroyAirplane(req,res){
+// DELETE : /airplanes/:id
+async function destroyAirplane(req, res) {
     try {
-        const response = await AirplaneService.destroyAirplane(req.params.id)
-        SuccessResponse.data = response
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const response = await AirplaneService.destroyAirplane(req.params.id);
+        return res.status(StatusCodes.OK).json(SuccessResponse(response));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // PATCH : /airplanes/:id
-// req.body : {capacity:250}
-async function updateAirplane(req,res){
+async function updateAirplane(req, res) {
     try {
-        const updatedAirplane = await AirplaneService.updateAirplane(req.params.id,req.body)
-        SuccessResponse.data = updatedAirplane
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const updatedAirplane = await AirplaneService.updateAirplane(req.params.id, req.body);
+        return res.status(StatusCodes.OK).json(SuccessResponse(updatedAirplane));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse)
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
@@ -78,4 +62,4 @@ module.exports = {
     getAirplane,
     destroyAirplane,
     updateAirplane
-}
+};

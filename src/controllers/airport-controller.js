@@ -1,75 +1,59 @@
-const { response } = require("express");
-const {AirportService} = require("../services")
-const {StatusCodes} = require("http-status-codes")
-const {SuccessResponse , ErrorResponse} = require("../utils/common")
+const { AirportService } = require("../services");
+const { StatusCodes } = require("http-status-codes");
+const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
 // Post : /airports
-// reqbody {name:'CGI', code:'DLI',address:'Delhi',cityId:10}
-
-async function createAirport(req,res){
+async function createAirport(req, res) {
     try {
         const airport = await AirportService.createAirport({
-            name : req.body.name,
-            code : req.body.code,
-            cityId : req.body.cityId,
+            name: req.body.name,
+            code: req.body.code,
+            cityId: req.body.cityId,
+            address: req.body.address
         });
-        SuccessResponse.data = airport
-        return res.status(StatusCodes.CREATED).json(SuccessResponse)        
+        return res.status(StatusCodes.CREATED).json(SuccessResponse(airport));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // GET : /airports
-// reqbody : {}
-async function getAirports(req,res){
+async function getAirports(req, res) {
     try {
-        const airports = await AirportService.getAirports()
-        SuccessResponse.data = airports
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const airports = await AirportService.getAirports();
+        return res.status(StatusCodes.OK).json(SuccessResponse(airports));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // GET : /airports/:id
-// req.body : {}
-async function getAirport(req,res){
+async function getAirport(req, res) {
     try {
-        const airport = await AirportService.getAirport(req.params.id)
-        SuccessResponse.data = airport
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const airport = await AirportService.getAirport(req.params.id);
+        return res.status(StatusCodes.OK).json(SuccessResponse(airport));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
-// GET : /airports/:id
-// req.body : {}
-async function destroyAirport(req,res){
+// DELETE : /airports/:id
+async function destroyAirport(req, res) {
     try {
-        const response = await AirportService.destroyAirport(req.params.id)
-        SuccessResponse.data = response
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const response = await AirportService.destroyAirport(req.params.id);
+        return res.status(StatusCodes.OK).json(SuccessResponse(response));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
 // PATCH : /airports/:id
-// req.body : {code:'DLI'}
-async function updateAirport(req,res){
+async function updateAirport(req, res) {
     try {
-        const updatedAirport = await AirportService.updateAirport(req.params.id,req.body)
-        SuccessResponse.data = updatedAirport
-        return res.status(StatusCodes.OK).json(SuccessResponse)
+        const updatedAirport = await AirportService.updateAirport(req.params.id, req.body);
+        return res.status(StatusCodes.OK).json(SuccessResponse(updatedAirport));
     } catch (error) {
-        ErrorResponse.error = error
-        return res.status(error.statusCode).json(ErrorResponse)
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse(error));
     }
 }
 
@@ -79,4 +63,4 @@ module.exports = {
     getAirport,
     destroyAirport,
     updateAirport
-}
+};
