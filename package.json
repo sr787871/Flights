@@ -15,12 +15,14 @@
     "http-status-codes": "^2.3.0",
     "mysql2": "^3.11.5",
     "sequelize": "^6.37.5",
+    "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^22.9.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "sequelize-cli": "^6.6.2",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"

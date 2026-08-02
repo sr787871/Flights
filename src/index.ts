@@ -1,12 +1,21 @@
 import express, { Request, Response } from 'express';
 import mysql from 'mysql2/promise';
+import swaggerUi from 'swagger-ui-express';
 import { PORT, sequelize, logger, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } from './config';
+import { flightSwaggerSpec } from './config/swagger-config';
 import apiRoutes from './routes';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Swagger Specification Endpoints
+app.get('/api-docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(flightSwaggerSpec);
+});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(flightSwaggerSpec));
 
 app.use('/api', apiRoutes);
 
